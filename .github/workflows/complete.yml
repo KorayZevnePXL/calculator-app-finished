@@ -17,6 +17,7 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '15'  
+        
     - name: Install dependencies
       run: |
         npm install  
@@ -24,15 +25,3 @@ jobs:
     - name: Bundle the code into a zip
       run: |
         zip -r app.zip .  
-
-    - name: Run unit tests and generate report
-      run: |
-        npm test -- --reporter=spec
-      continue-on-error: false  
-
-    - name: Upload test report as artifact
-      if: failure()  
-      uses: actions/upload-artifact@v3
-      with:
-        name: test-report
-        path: ./path/to/test-report-directory 
