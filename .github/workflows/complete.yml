@@ -19,7 +19,10 @@ jobs:
     - name: Install dependencies
       run: npm install 
 
-    - name: test the code
+    - name: Run tests with coverage
+      run: npm test -- --coverage --ci --reporters=default --reporters=jest-junit
+
+    - name: Upload test coverage
       uses: mridang/action-test-reporter@v1.7.0
 
     - name: Bundle the code into a zip
