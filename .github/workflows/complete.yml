@@ -24,6 +24,8 @@ jobs:
 
     - name: Upload test coverage
       uses: mridang/action-test-reporter@v1.7.0
+      with:
+        coverage-file: ./coverage/lcov-report/index.html
 
     - name: Bundle the code into a zip
       run: zip -r app.zip .  
