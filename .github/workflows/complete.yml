@@ -1,33 +1,38 @@
-name: Build Examples
+name: Build Example
 
 on:
   push:
     branches:
-      - main
+      - main 
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5.0.1
+    - name: Checkout code
+      uses: actions/checkout@v2  
 
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v6
-        with:
-          node-version: '20'
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '15'  
+    - name: Install dependencies
+      run: |
+        npm install  
 
-      - name: Build the code
-        run: |
-          npm install
-          npm run build  
+    - name: Bundle the code into a zip
+      run: |
+        zip -r app.zip .  
 
-      - name: Better Test Reports Action
-        uses: mridang/action-test-reporter@v1.7.0
+    - name: Run unit tests and generate report
+      run: |
+        npm test -- --reporter=spec
+      continue-on-error: false  
 
-      - name: List files
-        run: ls -alhR
-
-      - name: Build Examples
-        run: zip -r build.zip . 
+    - name: Upload test report as artifact
+      if: failure()  
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-report
+        path: ./path/to/test-report-directory 
