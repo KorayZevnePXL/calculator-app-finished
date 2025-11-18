@@ -13,13 +13,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5.0.1
 
-      - name: Setup Node
+      - name: Setup Node.js environment
         uses: actions/setup-node@v6
         with:
-          node-version: '15'
+          node-version: '20'
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4.
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
           
-      - name: Better Test Reports Action
-        uses: mridang/action-test-reporter@v1.7.0
+      - name: unittests maven
+        run: mvn test
+          
+      - name: Install dependencies
+        run: npm install
 
       - name: List files
         run: ls -alhR
