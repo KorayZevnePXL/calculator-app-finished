@@ -1,4 +1,4 @@
-name: build Examples
+name: Build Examples
 
 on:
   push:
@@ -17,12 +17,17 @@ jobs:
         uses: actions/setup-node@v6
         with:
           node-version: '20'
-          
+
+      - name: Build the code
+        run: |
+          npm install
+          npm run build  
+
       - name: Better Test Reports Action
         uses: mridang/action-test-reporter@v1.7.0
-      
+
       - name: List files
         run: ls -alhR
-        
+
       - name: Build Examples
-        run: zip -r build.zip .
+        run: zip -r build.zip . 
