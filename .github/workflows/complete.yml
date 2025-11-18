@@ -17,7 +17,10 @@ jobs:
         node-version: '20'  
         
     - name: Install dependencies
-      run: npm install  
+      run: npm install 
+
+    - name: test the code
+      uses: mridang/action-test-reporter@v1.7.0
 
     - name: Bundle the code into a zip
       run: zip -r app.zip .  
