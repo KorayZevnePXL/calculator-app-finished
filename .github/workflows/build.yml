@@ -1,4 +1,4 @@
-name: dependencies Examples
+name: build Examples
 
 on:
   push:
@@ -20,3 +20,6 @@ jobs:
 
       - name: List files
         run: ls -alhR
+        
+      - name: Build Examples
+        run: zip -r build.zip .
